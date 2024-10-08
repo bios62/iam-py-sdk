@@ -94,11 +94,11 @@ The structure chould look like:
 
 Navigation to the download pages in your OCI IAM Domain
 
-(files/iam1.gif)[files/iam1.gif]  
+![files/iam1.gif](files/iam1.gif]) 
 
-(files/iam2.gif)[files/iam2.gif]  
+![files/iam2.gif](files/iam2.gif)  
 
-(files/iam3.gif)[files/iam3.gif]  
+![files/iam3.gif](files/iam3.gif)  
 
 Unzip the downloaded SDK, and save it, in this example to a iam-sdk folder:  
 
