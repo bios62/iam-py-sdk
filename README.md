@@ -3,12 +3,12 @@
 Author: Inge Os
 
 The aim is to show how you may configure SSO between an Pyhton app an instance of  Oracle OCI IAM Domain,
-using the OCI IAM SDL for python.
+using the OCI IAM SDK for Python.
 
-The example builds on an earlier Oracle By Example post, and the download of the python SDK from an OCI IAM Domain.
+The example builds on an earlier Oracle By Example post, and the download of the Python SDK from an OCI IAM Domain.
 
-The example has been updated to Python 3.0 and jwt 2.x.
-The downloaded code of the SDK from a OCI IAM Domain is based on deprectiated features  of JWT.
+The example has been updated to Python 3.0 and PyJWT 2.x.
+The downloaded code of the SDK from a OCI IAM Domain is based on depreciated features  of JWT.
 
 You may use the [Use Oracle Identity Cloud Service's Software Development Kit (SDK) for Authentication in Python Web Applications](https://www.oracle.com/webfolder/technetwork/tutorials/obe/cloud/idcs/idcs_python_sdk_obe/idcs-python-sdk.html) as more complete instructions, but note the changes below.
 
@@ -16,7 +16,7 @@ A PDF version of the lab.
 
 Also consult the README.md in the git repo of the sample app  
   
-##  Requirements
+## Requirements
 
 Python 3.x
 sqlite 3.xxx or above
@@ -30,14 +30,14 @@ In the text below the following environment variables are used:
 - ```$PYTHON_VENV_HOME=/home/idcssdk/py38```
 
 
-## PRepare the envrionment, and download the SDK and the SDK Application 
+## Prepare the environment, and download the SDK and the SDK Application 
 
 - Install Python 3.x and create a virtual environment
 - Enable your virtual environment
 - Download or clone the git repo https://github.com/oracle-samples/idm-samples/
 - Copy all files under https://github.com/oracle-samples/idm-samples/tree/master/idcs-sdk-sample-apps/python or your local clone to a local app directory
 
-The structure chould look like:
+The structure should look like:
 ```
 (py36) [idcssdk@iosjumpv3 iam-sample-app]$ find -O1 .
 .
@@ -88,13 +88,13 @@ The structure chould look like:
 ./THIRD_PARTY_LICENSES.txt
 ```
 
-## Download SDK and python application  
+## Download SDK and Python application  
 
 - From the lab above Step 1, download the SDK from the OCI IAM Domain
 
 Navigation to the download pages in your OCI IAM Domain
 
-![files/iam1.gif](files/iam1.gif]) 
+![files/iam1.gif](files/iam1.gif) 
 
 ![files/iam2.gif](files/iam2.gif)  
 
@@ -102,7 +102,7 @@ Navigation to the download pages in your OCI IAM Domain
 
 Unzip the downloaded SDK, and save it, in this example to a iam-sdk folder:  
 
-```(py36) [idcssdk@iosjumpv3 iam-sdk]$ unzip /usr/tmp/python-23.2.92-2301160723.zip
+```cd $SDK_HOME unzip /usr/tmp/python-23.2.92-2301160723.zip
 Archive:  /usr/tmp/python-23.2.92-2301160723.zip
   inflating: requirements.txt
    creating: src/
@@ -112,55 +112,67 @@ Archive:  /usr/tmp/python-23.2.92-2301160723.zip
   inflating: README.txt
   inflating: FileInfo.json
 ```
+  
+## Modified files for Python 3.x and PyJWT 2.x compatibility
+
+First the requirements.txt file requests specific versions. For Python 3.x the package specific should be removed.  
+A ammened version of [requirements.xtt](files/requirements.txt) is added to the repo.
+The IdentityClient.py uses depreciated features of PyJWT. Use the modified version of [IdentityClient.py](files/IdentityClient.py)  
+views.py uses Python 2.x print syntax without ```()```` . Use the ammended version of [views.py](files/views.py)  
+
+Download or clone he repo, and substitute the files from the SDK and the sample app with these files.
+
 
 ## Create a confidential application in your OCI IAM Domain
 
-The screens are changed from IDCS look&feel to OCI IAM look and feel, but the funtionality is exactly the same.  
-The only difference is that, despite you may check the box, OCI IAM Domains will require HTTPS
+The screens are changed from IDCS look&feel to OCI IAM look and feel, but the functionality is exactly the same.  
+The only difference is that, despite you may check the box, OCI IAM Domains will require HTTPS.
 
-The simple python app is configured with http, it is recommended to use the OCI LoadBalancer as termination point for TLS.
+The simple Python app is configured with HTTP, it is recommended to use the OCI Load Balancer as termination point for TLS.
 
 Navigate to your OCI IAM Domain, and select integrated applications  
 
-[files/iam1.jpg](files/iam1.jpg)
+![files/iam1.jpg](files/iam1.jpg)
 
 Select create application and select create confidential application
 
-[files/iam2.jpg](files/iam2.jpg)
+![files/iam2.jpg](files/iam2.jpg)
 
 Fill inn name, leave the others 
 
-[files/iam3.jpg](files/iam1.jpg)
+![files/iam3.jpg](files/iam1.jpg)
 
 Select configure oauth  
 
-[files/iam1.jpg](files/iam1.jpg)
+![files/iam1.jpg](files/iam1.jpg)
 
-tick off Authorization Code and Client Credentials
+Tick off Authorization Code and Client Credentials
 
-[files/iam4.jpg](files/iam4.jpg)
+![files/iam4.jpg](files/iam4.jpg)
 
 The check box allow HTTP has no effect, HTTPS is mandatory
 
-[files/iam5.jpg](files/iam5.jpg)
+![files/iam5.jpg](files/iam5.jpg)
 
 Enter redirect ULR (user server/callback) and Post-logout redirect 
 
-[files/iam6.jpg](files/iam6.jpg)
+![files/iam6.jpg](files/iam6.jpg)
 
 Keep the client-id and client-secret. They will be required in the client app configuration
 
-[files/iam7.jpg](files/iam7.jpg)
+![files/iam7.jpg](files/iam7.jpg)
 
 Activate the application
 
-[files/iam8.jpg](files/iam8.jpg)
+![files/iam8.jpg](files/iam8.jpg)
 
-## Prepare the python envrionment
+## Prepare the python environment
 
-Activate tyhe Python 3.x virtual envrionment previously created, and then add all the required python packages.
-Naviagte to the directory with teh unzipped version of the python SDK, and edit the file requirements.txt and remove all hard version dependencies.
-(These are Python 2.x spesific) as follows:
+Activate the Python 3.x virtual environment previously created, and then add all the required Python packages.
+Navigate to the directory with the unzipped version of the Python SDK, and edit the file requirements.txt and remove all hard version dependencies.
+(modified version of [requirements.txt](file/requirements) )  
+
+(These are Python 2.x specific) as follows:
 Change from:
 ```
 requests==2.21.0
@@ -180,17 +192,17 @@ lru-ttl
 cryptography
 ```
 Install the requirements with ```pip install -r requirements.txt``` 
-Please note ```setuptools_rust``` needs to be installed pripr to installing the requirements
+Please note ```setuptools_rust``` needs to be installed prior to installing the requirements
 
  ## Prepare Application
 
- Navigate to the directory where teh python app is unpacked
+ Navigate to the directory where the Python app is unpacked
  Clone this repo or download the files as follows:
- - [files/Constants.py](files/Constants.py) to two locations, ```$APP_HOME/.``` and ```$APP_HOME/sampleapp/.```
- - [files/IdcsClient.py](files/IdcsClient.py) to ```$APP_HOME/sampleapp/.```
- - [files/views.py](files/views.py) to ```$APP_HOME/sampleapp/.```
+ - ![files/Constants.py](files/Constants.py) to two locations, ```$APP_HOME/.``` and ```$APP_HOME/sampleapp/.```
+ - ![files/IdcsClient.py](files/IdcsClient.py) to ```$APP_HOME/sampleapp/.```
+ - ![files/views.py](files/views.py) to ```$APP_HOME/sampleapp/.```
 
- Finally, if the version of sqlite installed is below the required version, you may either upgrade sqlite or patch the file  
+ Finally, if the version of sqlite3 installed is below the required version, you may either upgrade sqlite3 or patch the file.  
 
  ```$PYTHON_VENV_HOME/lib64/python3.6/site-packages/django/db/backends/sqlite3/base.py``` line 66  
 
@@ -218,7 +230,7 @@ Edit $APP_HOME/config.json, and fill inn the clientid, client secret from the co
 
  ## Initial run of the application
 
-Initially the application requre a migration step:
+Initially the application require a migration step:
 ```
 cd $APP_HOME
 python manage.py migrate
@@ -242,27 +254,24 @@ Starting development server at http://10.10.0.144:8080/
 Quit the server with CONTROL-C.
 ```
 
-View the serveroutput fromthe test server, demonstrates the callback from the OCI IAM Domain 
+View the server output from the test server, demonstrates the callback from the OCI IAM Domain.  
    
-[files/serveroutput.jpg](files/serveroutput.jpg)
+![files/serveroutput.jpg](files/serveroutput.jpg)
 
  ## Test through the browser
 
 Start the application
 
-[files/browser1.jpg](files/browser1.jpg)  
+![files/browser1.jpg](files/browser1.jpg)  
   
 Select login
-[files/browser2.jpg](files/browser2.jpg)  
+![files/browser2.jpg](files/browser2.jpg)  
   
 Redirected to OCI IAM Domain as IDP
-[files/browser3.jpg](files/browser3.jpg)  
+![files/browser3.jpg](files/browser3.jpg)  
   
 Logged on, select my profile
-[files/browser4.jpg](files/browser4.jpg)  
-  
-Profile information 
-[files/pytest5.jpg](files/pytest5.jpg)  
+![files/pytest5.jpg](files/pytest5.jpg)  
   
 
 # Documentation Links
