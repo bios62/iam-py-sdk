@@ -9,21 +9,21 @@ The example builds on an earlier Oracle By Example post, and the download of the
 
 The example has been updated to Python 3.0 and PyJWT 2.x.  
 
-The code included ```IndetityClient.py``` form the OCI IAM SDK at OCI IAM Domain is based on depreciated features of pyJWT 1.5.x. [files/IdentityClient.py](files/IdentityClient.py) is updated to current version of PyJWT 2.x.  
+The code ```IndetityClient.py``` included in the OCI IAM SDK at OCI IAM Domain is based on depreciated features of pyJWT 1.5.x. A corrected version that support PyJWT 2.xx is provided [files/IdentityClient.py](files/IdentityClient.py).  
 
 The instructions is based on [Use Oracle Identity Cloud Service's Software Development Kit (SDK) for Authentication in Python Web Applications](https://www.oracle.com/webfolder/technetwork/tutorials/obe/cloud/idcs/idcs_python_sdk_obe/idcs-python-sdk.html) or [files/Use_OCI_IAM_Domain_SDK_for_Authn.pdf](files/Use_OCI_IAM_Domain_SDK_for_Authn.pdf) but note the changes below. 
 
-A PDF version of the lab.
-
-Also consult the README.md in the git repo of the sample app  
+Also consult the README.md in the [git repo](https://github.com/oracle-samples/idm-samples/tree/master/idcs-sdk-sample-apps/python/sampleapp) for details on the sampleapp. 
   
 ## Requirements
+This version of the oracle By Example is updated to and requires:
+- Python 3.x
+- sqlite3 > sqlite3 3.9
+- pip upgraded to latest version
+- rust
+- python setuptool_rust   ```pip install setuptool_rust```
 
-Python 3.x
-sqlite 3.xxx or above
-pip upgraded to latest version
-rust
-python setuptool_rust   ```pip install setuptool_rust```
+## Envrionment variables  
 
 In the text below the following environment variables are used:
 - ```$SDK_HOME=/home/idssdk/iam-sdk```
