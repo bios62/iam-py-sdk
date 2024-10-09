@@ -126,7 +126,7 @@ lru-ttl
 cryptography
 ```
 
-The IdcsClient.py uses depreciated features of PyJWT. Use the modified version of [IdcsClient.py](files/IdcsClient.py)  
+The [IdcsClient.py](files/IdcsClient.py) uses depreciated features of PyJWT. Use the modified version of [IdcsClient.py](files/IdcsClient.py)  
 views.py uses Python 2.x print syntax without ```()```` . Use the ammended version of [views.py](files/views.py)  
 
 Download or clone this repo, or download the individual files.  
@@ -135,7 +135,7 @@ Substitute the files in the $SDK_HOME directory above with these files.
 ## Summary of code changes
 
 - In requrements.txt remove reference to specific versions, use [requirements.txt](files/requirements.txt)
-- In IdcsClient.py change any references to jwt.decode
+- In [IdcsClient.py](files/IdcsClient.py) change any references to jwt.decode
  ```
  # Change from
 jwt.decode(token, verify=False)
@@ -143,7 +143,8 @@ jwt.decode(token, verify=False)
 jwt.decode(token, options={"verify_signature": False},algorithms=['RS256'])```
 ```
 These changes is done in [IdcsClient.py](files/IdcsClient.py)
-- in view.py, a part for the sample app, Python V2 print syntax is used, without ```()```, change print sanements to Python V3 syntax.
+- In view.py, a part for the sample app, Python V2 print syntax is used, without ```()```,  
+change print statements to Python V3 syntax.
 Use the updated version [views.py](files/views.py)  
   
 
@@ -171,25 +172,21 @@ Select configure oauth
 
 ![files/app4.jpg](files/app4.jpg)
 
-Tick off Authorization Code and Client Credentials
+Tick off Authorization Code and Client Credentials, ticking off HTTP only is not recommended, it will still require HTPS  
 
 ![files/app5.jpg](files/app5.jpg)
 
-The check box allow HTTP has no effect, HTTPS is mandatory
-
-![files/iam5.jpg](files/iam5.jpg)
-
 Enter redirect ULR (user server/callback) and Post-logout redirect 
 
-![files/iam6.jpg](files/iam6.jpg)
+![files/app6.jpg](files/app6.jpg)
 
-Keep the client-id and client-secret. They will be required in the client app configuration
+copy the client-id and client-secret. They will be required in the client app configuration
 
-![files/iam7.jpg](files/iam7.jpg)
+![files/app7.jpg](files/app7.jpg)
 
 Activate the application
 
-![files/iam8.jpg](files/iam8.jpg)
+![files/app8.jpg](files/app8.jpg)
 
 ## Prepare the python environment
 
@@ -223,11 +220,11 @@ Please note ```setuptools_rust``` needs to be installed prior to installing the 
 
  Navigate to the directory where the Python app is unpacked
  Clone this repo or download the files as follows:
- - ![files/Constants.py](files/Constants.py) to two locations, ```$APP_HOME/.``` and ```$APP_HOME/sampleapp/.```
- - ![files/IdcsClient.py](files/IdcsClient.py) to ```$APP_HOME/sampleapp/.```
- - ![files/views.py](files/views.py) to ```$APP_HOME/sampleapp/.```
+ - ![Constants.py](files/Constants.py) to two locations, ```$APP_HOME/.``` and ```$APP_HOME/sampleapp/.```
+ - ![IdcsClient.py](files/IdcsClient.py) to ```$APP_HOME/sampleapp/.```
+ - ![views.py](files/views.py) to ```$APP_HOME/sampleapp/.```
 
- Finally, if the version of sqlite3 installed is below the required version, you may either upgrade sqlite3 or patch the file.  
+ Finally, if the version of sqlite3 installed is below the required version, you may either upgrade sqlite3 or patch the file: 
 
  ```$PYTHON_VENV_HOME/lib64/python3.6/site-packages/django/db/backends/sqlite3/base.py``` line 66  
 
@@ -301,12 +298,15 @@ Logged on, select my profile
 
 # Documentation Links
 
-Oracle OCI IAM Domain, license types
-[](https://docs.oracle.com/en-us/iaas/Content/Identity/sku/overview.htm)  
+Oracle OCI IAM Domain, license types  
+[OCI IAM Domain Types](https://docs.oracle.com/en-us/iaas/Content/Identity/sku/overview.htm)  
   
 Use Oracle Identity Cloud Service's Software Development Kit (SDK) for Authentication in Python Web Applications,
-original article
-[](https://www.oracle.com/webfolder/technetwork/tutorials/obe/cloud/idcs/idcs_python_sdk_obe/idcs-python-sdk.html)
+original article  
+[idcs_python_sdk_obe](https://www.oracle.com/webfolder/technetwork/tutorials/obe/cloud/idcs/idcs_python_sdk_obe/idcs-python-sdk.html)
+
+Git repo for OCI IAM Domain Python Samples 
+[idcs-sdk-sample-apps/python](https://github.com/oracle-samples/idm-samples/tree/master/idcs-sdk-sample-apps/python)
 
 
 
