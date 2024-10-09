@@ -9,9 +9,9 @@ The example builds on an earlier Oracle By Example post, and the download of the
 
 The example has been updated to Python 3.0 and PyJWT 2.x.  
 
-The code included ```IndetityClient.py``` form the OCI IAM SDK at OCI IAM Domain is based on depreciated features of pyJWT 1.5.x. [files/IdentitClient.py](files/IdentitClient.py) is updated to current version of PyJWT 2.x.  
+The code included ```IndetityClient.py``` form the OCI IAM SDK at OCI IAM Domain is based on depreciated features of pyJWT 1.5.x. [files/IdentityClient.py](files/IdentityClient.py) is updated to current version of PyJWT 2.x.  
 
-You may use the [Use Oracle Identity Cloud Service's Software Development Kit (SDK) for Authentication in Python Web Applications](https://www.oracle.com/webfolder/technetwork/tutorials/obe/cloud/idcs/idcs_python_sdk_obe/idcs-python-sdk.html) as more complete instructions, but note the changes below.
+The instructions is based on [Use Oracle Identity Cloud Service's Software Development Kit (SDK) for Authentication in Python Web Applications](https://www.oracle.com/webfolder/technetwork/tutorials/obe/cloud/idcs/idcs_python_sdk_obe/idcs-python-sdk.html) or [files/Use_OCI_IAM_Domain_SDK_for_Authn.pdf](files/Use_OCI_IAM_Domain_SDK_for_Authn.pdf) but note the changes below. 
 
 A PDF version of the lab.
 
