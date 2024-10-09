@@ -9,9 +9,7 @@ The example builds on an earlier Oracle By Example post, and the download of the
 
 The example has been updated to Python 3.0 and PyJWT 2.x.  
 
-The code ```IdcsClient.py``` included in the OCI IAM SDK at OCI IAM Domain is based on depreciated features of pyJWT 1.5.x. A corrected version that support PyJWT 2.xx is provided [files/IdcsClient.py](files/IdcsClient.py).  
-
-The instructions is based on [Use Oracle Identity Cloud Service's Software Development Kit (SDK) for Authentication in Python Web Applications](https://www.oracle.com/webfolder/technetwork/tutorials/obe/cloud/idcs/idcs_python_sdk_obe/idcs-python-sdk.html) or [files/Use_OCI_IAM_Domain_SDK_for_Authn.pdf](files/Use_OCI_IAM_Domain_SDK_for_Authn.pdf) but note the changes below. 
+The instructions is based on [Use Oracle Identity Cloud Service's Software Development Kit (SDK) for Authentication in Python Web Applications](https://www.oracle.com/webfolder/technetwork/tutorials/obe/cloud/idcs/idcs_python_sdk_obe/idcs-python-sdk.html) or [Use_OCI_IAM_Domain_SDK_for_Authn.pdf](files/Use_OCI_IAM_Domain_SDK_for_Authn.pdf) but note the changes below. 
 
 Also consult the README.md in the [git repo](https://github.com/oracle-samples/idm-samples/tree/master/idcs-sdk-sample-apps/python/sampleapp) for details on the sampleapp. 
   
@@ -29,22 +27,6 @@ In the text below the following environment variables are used:
 - ```$SDK_HOME=/home/idssdk/iam-sdk```
 - ```$APP_HOME=/home/idcsapp```
 - ```$PYTHON_VENV_HOME=/home/idcssdk/py38```
-
-## Summary of code changes
-
-- In requrements.txt remove reference to specific versions, use [files/requirements.txt](files/requirements.txt)
-- In IdcsClient.py change any references to jwt.decode
- ```
- # Change from
-jwt.decode(token, verify=False)
- # to
-jwt.decode(token, options={"verify_signature": False},algorithms=['RS256'])```
-```
-These changes is done in [files/IdcsClient.py](files/IdcsClient.py)
-- in view.py, a part for the sample app, Python V2 print syntax is used, without ```()```, change print sanements to Python V3 syntax.
-Use the updated version [files/views.py](files/views.py)  
-  
-  
 
 ## Prepare the environment, and download the SDK and the SDK Application 
 
@@ -150,6 +132,21 @@ views.py uses Python 2.x print syntax without ```()```` . Use the ammended versi
 Download or clone this repo, or download the individual files.  
 Substitute the files in the $SDK_HOME directory above with these files.
 
+## Summary of code changes
+
+- In requrements.txt remove reference to specific versions, use [requirements.txt](files/requirements.txt)
+- In IdcsClient.py change any references to jwt.decode
+ ```
+ # Change from
+jwt.decode(token, verify=False)
+ # to
+jwt.decode(token, options={"verify_signature": False},algorithms=['RS256'])```
+```
+These changes is done in [IdcsClient.py](files/IdcsClient.py)
+- in view.py, a part for the sample app, Python V2 print syntax is used, without ```()```, change print sanements to Python V3 syntax.
+Use the updated version [views.py](files/views.py)  
+  
+
 
 ## Create a confidential application in your OCI IAM Domain
 
@@ -160,23 +157,23 @@ The simple Python app is configured with HTTP, it is recommended to use the OCI 
 
 Navigate to your OCI IAM Domain, and select integrated applications  
 
-![files/iam1.gif](files/iam1.gif)
+![files/app1.jpg](files/app1.jpg)
 
 Select create application and select create confidential application
 
-![files/iam2.gif](files/iam2.gif)
+![files/app2.jpg](files/app2.jpg)
 
 Fill inn name, leave the others 
 
-![files/iam3.gif](files/iam3.gif)
+![files/app3.jpg](files/app3.jpg)
 
 Select configure oauth  
 
-![files/app1.jpg](files/app1.jpg)
+![files/app4.jpg](files/app4.jpg)
 
 Tick off Authorization Code and Client Credentials
 
-![files/iam4.jpg](files/iam4.jpg)
+![files/app5.jpg](files/app5.jpg)
 
 The check box allow HTTP has no effect, HTTPS is mandatory
 
