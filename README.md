@@ -172,7 +172,7 @@ Select configure oauth
 
 ![files/app4.jpg](files/app4.jpg)
 
-Tick off Authorization Code and Client Credentials, ticking off HTTP only is not recommended, it will still require HTPS  
+Tick off Authorization Code and Client Credentials, ticking off HTTP only is not recommended, it will still require HTTPS  
 
 ![files/app5.jpg](files/app5.jpg)
 
@@ -298,14 +298,14 @@ Logged on, select my profile
 
 # Documentation Links
 
-Oracle OCI IAM Domain, license types  
+Oracle OCI IAM Domain, license types:  
 [OCI IAM Domain Types](https://docs.oracle.com/en-us/iaas/Content/Identity/sku/overview.htm)  
   
 Use Oracle Identity Cloud Service's Software Development Kit (SDK) for Authentication in Python Web Applications,
-original article  
+original article:  
 [idcs_python_sdk_obe](https://www.oracle.com/webfolder/technetwork/tutorials/obe/cloud/idcs/idcs_python_sdk_obe/idcs-python-sdk.html)
 
-Git repo for OCI IAM Domain Python Samples 
+Git repo for OCI IAM Domain Python Samples:  
 [idcs-sdk-sample-apps/python](https://github.com/oracle-samples/idm-samples/tree/master/idcs-sdk-sample-apps/python)
 
 
