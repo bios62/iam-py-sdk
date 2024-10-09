@@ -9,7 +9,7 @@ The example builds on an earlier Oracle By Example post, and the download of the
 
 The example has been updated to Python 3.0 and PyJWT 2.x.  
 
-The code ```IndetityClient.py``` included in the OCI IAM SDK at OCI IAM Domain is based on depreciated features of pyJWT 1.5.x. A corrected version that support PyJWT 2.xx is provided [files/IdentityClient.py](files/IdentityClient.py).  
+The code ```IdcsClient.py``` included in the OCI IAM SDK at OCI IAM Domain is based on depreciated features of pyJWT 1.5.x. A corrected version that support PyJWT 2.xx is provided [files/IdcsClient.py](files/IdcsClient.py).  
 
 The instructions is based on [Use Oracle Identity Cloud Service's Software Development Kit (SDK) for Authentication in Python Web Applications](https://www.oracle.com/webfolder/technetwork/tutorials/obe/cloud/idcs/idcs_python_sdk_obe/idcs-python-sdk.html) or [files/Use_OCI_IAM_Domain_SDK_for_Authn.pdf](files/Use_OCI_IAM_Domain_SDK_for_Authn.pdf) but note the changes below. 
 
@@ -30,6 +30,21 @@ In the text below the following environment variables are used:
 - ```$APP_HOME=/home/idcsapp```
 - ```$PYTHON_VENV_HOME=/home/idcssdk/py38```
 
+## Summary of code changes
+
+- In requrements.txt remove reference to specific versions, use [files/requirements.txt](files/requirements.txt)
+- In IdcsClient.py change any references to jwt.decode
+ ```
+ # Change from
+jwt.decode(token, verify=False)
+ # to
+jwt.decode(token, options={"verify_signature": False},algorithms=['RS256'])```
+```
+These changes is done in [files/IdcsClient.py](files/IdcsClient.py)
+- in view.py, a part for the sample app, Python V2 print syntax is used, without ```()```, change print sanements to Python V3 syntax.
+Use the updated version [files/views.py](files/views.py)  
+  
+  
 
 ## Prepare the environment, and download the SDK and the SDK Application 
 
@@ -91,7 +106,7 @@ The structure should look like:
 
 ## Download SDK and Python application  
 
-- From the lab above Step 1, download the SDK from the OCI IAM Domain
+Download the SDK from the OCI IAM Domain
 
 Navigation to the download pages in your OCI IAM Domain
 
@@ -101,7 +116,7 @@ Navigation to the download pages in your OCI IAM Domain
 
 ![files/iam3.gif](files/iam3.gif)  
 
-Unzip the downloaded SDK, and save it, in this example to a iam-sdk folder:  
+Unzip the downloaded SDK, and save it, in this example to ```$SDK_HOME``` folder:  
 
 ```cd $SDK_HOME unzip /usr/tmp/python-23.2.92-2301160723.zip
 Archive:  /usr/tmp/python-23.2.92-2301160723.zip
@@ -117,35 +132,47 @@ Archive:  /usr/tmp/python-23.2.92-2301160723.zip
 ## Modified files for Python 3.x and PyJWT 2.x compatibility
 
 First the requirements.txt file requests specific versions. For Python 3.x the package specific should be removed.  
-A ammened version of [requirements.xtt](files/requirements.txt) is added to the repo.
-The IdentityClient.py uses depreciated features of PyJWT. Use the modified version of [IdentityClient.py](files/IdentityClient.py)  
+A ammened version of [requirements.txt](files/requirements.txt) is added to the repo.  
+The requirement.txt should look like:  
+
+```
+requests
+six
+simplejson
+PyJWT
+lru-ttl
+cryptography
+```
+
+The IdcsClient.py uses depreciated features of PyJWT. Use the modified version of [IdcsClient.py](files/IdcsClient.py)  
 views.py uses Python 2.x print syntax without ```()```` . Use the ammended version of [views.py](files/views.py)  
 
-Download or clone he repo, and substitute the files from the SDK and the sample app with these files.
+Download or clone this repo, or download the individual files.  
+Substitute the files in the $SDK_HOME directory above with these files.
 
 
 ## Create a confidential application in your OCI IAM Domain
 
-The screens are changed from IDCS look&feel to OCI IAM look and feel, but the functionality is exactly the same.  
+The screens are changed from IDCS look&feel to OCI IAM look&feel, but the functionality is exactly the same.  
 The only difference is that, despite you may check the box, OCI IAM Domains will require HTTPS.
 
 The simple Python app is configured with HTTP, it is recommended to use the OCI Load Balancer as termination point for TLS.
 
 Navigate to your OCI IAM Domain, and select integrated applications  
 
-![files/iam1.jpg](files/iam1.jpg)
+![files/iam1.gif](files/iam1.gif)
 
 Select create application and select create confidential application
 
-![files/iam2.jpg](files/iam2.jpg)
+![files/iam2.gif](files/iam2.gif)
 
 Fill inn name, leave the others 
 
-![files/iam3.jpg](files/iam1.jpg)
+![files/iam3.gif](files/iam3.gif)
 
 Select configure oauth  
 
-![files/iam1.jpg](files/iam1.jpg)
+![files/app1.jpg](files/app1.jpg)
 
 Tick off Authorization Code and Client Credentials
 
